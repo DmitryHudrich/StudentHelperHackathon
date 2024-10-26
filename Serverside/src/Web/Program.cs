@@ -33,7 +33,7 @@ app.UseHealthChecks("/health");
 
 app.UseExceptionHandler(static options => { });
 
-app.MapGet("/penis", static (ISender sender, [AsParameters] GetWeatherForecastsQuery q) => sender.Send(q));
+app.MapGet("/test", static (ISender sender, [AsParameters] GetWeatherForecastsQuery q) => sender.Send(q));
 app.MapGroup("/auth").MapIdentityApi<StudentHelper.Infrastructure.Identity.ApplicationUser>();
 
 app.MapGet("/university", static (ISender sender, [AsParameters] GetUniversityQuery q) => sender.Send(q));
