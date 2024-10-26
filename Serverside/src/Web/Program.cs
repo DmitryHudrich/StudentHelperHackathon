@@ -1,12 +1,15 @@
 ﻿using StudentHelper.Application;
 using StudentHelper.Application.WeatherForecasts.Queries.GetWeatherForecasts;
-using StudentHelper.Application.Universities.Commands;
 using StudentHelper.Infrastructure;
 using StudentHelper.Infrastructure.Data;
 using StudentHelper.Web;
 using StudentHelper.Application.Universities.Queries;
 using StudentHelper.Application.Branch.Queries;
 using StudentHelper.Application.Branch.Commands;
+using StudentHelper.Application.AUniversities.Commands;
+using StudentHelper.Application.ATopic.Queries;
+using StudentHelper.Application.ATopic.Commands;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +41,7 @@ app.UseExceptionHandler(static options => { });
 app.MapGet("/test", static (ISender sender, [AsParameters] GetWeatherForecastsQuery q) => sender.Send(q));
 app.MapGroup("/auth").MapIdentityApi<StudentHelper.Infrastructure.Identity.ApplicationUser>();
 
-app.MapGet("/university", static (ISender sender, [AsParameters] GetUniversityQuery q) => sender.Send(q));
+app.MapGet("/university", static (ISender sender, [AsParameters] GetTopicsByBranch q) => sender.Send(q));
 app.MapGet("/university/all", static (ISender sender, [AsParameters] GetAllUniversitiesQuery q) => sender.Send(q));
 app.MapPatch("/university", static (ISender sender, [AsParameters] UpdateUniversityCommand q) => sender.Send(q));
 app.MapPost("/university", static (ISender sender, [AsParameters] CreateUniversityCommand q) => sender.Send(q));
@@ -52,6 +55,11 @@ app.MapDelete("/branch", static (ISender sender, [AsParameters] DeleteBranchComm
 
 app.MapPost("/branch/contact", static (ISender sender, [AsParameters] AddContactToBranchCommand q) => sender.Send(q));
 app.MapDelete("/branch/contact", static (ISender sender, [AsParameters] RemoveContactFromBranchCommand q) => sender.Send(q));
+
+app.MapGet("/topic", static (ISender sender, [AsParameters] GetTopicsByBranchQuery q) => sender.Send(q));
+app.MapPatch("/topic", static (ISender sender, [AsParameters] UpdateTopicCommand q) => sender.Send(q));
+app.MapPost("/topic", static (ISender sender, [AsParameters] CreateTopicCommand q) => sender.Send(q));
+app.MapDelete("/topic", static (ISender sender, [AsParameters] DeleteTopicCommand q) => sender.Send(q));
 
 app.Run();
 

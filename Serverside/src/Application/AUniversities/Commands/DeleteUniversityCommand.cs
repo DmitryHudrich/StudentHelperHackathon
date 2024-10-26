@@ -1,6 +1,6 @@
 ﻿using StudentHelper.Application.Common.Interfaces;
 
-namespace StudentHelper.Application.Universities.Commands; 
+namespace StudentHelper.Application.AUniversities.Commands;
 
 public class DeleteUniversityCommand : IRequest<Boolean> {
     public int Id { get; set; }

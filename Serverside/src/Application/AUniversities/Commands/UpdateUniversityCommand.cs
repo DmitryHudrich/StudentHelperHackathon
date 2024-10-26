@@ -1,5 +1,7 @@
 ﻿using StudentHelper.Application.Common.Interfaces;
 
+namespace StudentHelper.Application.AUniversities.Commands;
+
 public class UpdateUniversityCommand : IRequest<Boolean> {
     public Int32 Id { get; set; }
     public required String Name { get; set; }
@@ -9,10 +11,9 @@ public class UpdateUniversityCommand : IRequest<Boolean> {
     public required String Image { get; set; }
 }
 
-public class UpdateUniversityCommandHandler(IApplicationDbContext context) : IRequestHandler<UpdateUniversityCommand, Boolean> {
-    public async Task<Boolean> Handle(UpdateUniversityCommand request, CancellationToken cancellationToken) {
-        var university = await context.Universities.FindAsync(request.Id);
-
+public class UpdateUniversityCommandHandler(IApplicationDbContext context) : IRequestHandler<UpdateUniversityCommand, bool> {
+    public async Task<bool> Handle(UpdateUniversityCommand request, CancellationToken cancellationToken) {
+        var university = await context.Universities.FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
         if (university == null) {
             return false;
         }
@@ -24,9 +25,7 @@ public class UpdateUniversityCommandHandler(IApplicationDbContext context) : IRe
         university.Image = request.Image;
 
         await context.SaveChangesAsync(cancellationToken);
-
         return true;
     }
 }
-
 
