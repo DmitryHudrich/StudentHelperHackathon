@@ -9,11 +9,11 @@ using StudentHelper.Infrastructure.Data;
 
 #nullable disable
 
-namespace StudentHelper.Infrastructure.Migrations
+namespace BebraTemplate.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241026081807_SexxxoMegrat")]
-    partial class SexxxoMegrat
+    [Migration("20241026100205_SexxxoMegratass")]
+    partial class SexxxoMegratass
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

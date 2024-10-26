@@ -7,7 +7,7 @@ services:
       - "5000:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Server=db;Port=5432;Database=your_database;User Id=your_user;Password=your_password;
+      - ConnectionStrings__DefaultConnection=Server=db;Port=5432;Database=sexdb;User Id=bebrik;Password=bebriksecret;
     depends_on:
       - db
 
@@ -22,6 +22,16 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=user@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=12345
+    ports:    
+      - "1489:80"
+    depends_on:
+      - db
 
 volumes:
   postgres_data:

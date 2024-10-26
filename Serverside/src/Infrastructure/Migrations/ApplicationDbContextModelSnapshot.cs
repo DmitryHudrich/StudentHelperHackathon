@@ -8,7 +8,7 @@ using StudentHelper.Infrastructure.Data;
 
 #nullable disable
 
-namespace StudentHelper.Infrastructure.Migrations
+namespace BebraTemplate.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

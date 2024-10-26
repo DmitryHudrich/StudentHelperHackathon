@@ -1,7 +1,7 @@
 ﻿namespace StudentHelper.Domain.Entities; 
 
 public class University {
-    public required Int32 Id { get; set; }
+    public Int32 Id { get; set; }
     public required String Name { get; set; }
     public required String MainAddress { get; set; }
     public required String ContactName { get; set; }

@@ -25,6 +25,7 @@ public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitial
     public async Task InitialiseAsync() {
         try {
             await context.Database.MigrateAsync();
+            logger.LogInformation("Migrations uspeshno.");
         }
         catch (Exception ex) {
             logger.LogError(ex, "An error occurred while initialising the database.");
