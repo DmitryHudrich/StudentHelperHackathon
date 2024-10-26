@@ -11,5 +11,5 @@ WORKDIR /app
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "BebraTemplate.Web.dll"]
+ENTRYPOINT ["dotnet", "StudentHelper.Web.dll"]
 
