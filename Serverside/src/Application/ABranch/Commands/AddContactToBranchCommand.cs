@@ -3,19 +3,23 @@ using StudentHelper.Domain.Entities;
 
 namespace StudentHelper.Application.Branch.Commands;
 
-public class AddContactToBranchCommand : IRequest<Contact?> {
+public class AddContactToBranchCommand : IRequest<BranchContact?> {
     public required Int32 BranchId { get; set; }
     public required String Name { get; set; }
     public required String Content { get; set; }
 }
 
-public class AddContactToBranchCommandHandler(IApplicationDbContext context) : IRequestHandler<AddContactToBranchCommand, Contact?> {
-    public async Task<Contact?> Handle(AddContactToBranchCommand request, CancellationToken cancellationToken) {
-        var contact = new Contact() {
+public class AddContactToBranchCommandHandler(IApplicationDbContext context) : IRequestHandler<AddContactToBranchCommand, BranchContact?> {
+    public async Task<BranchContact?> Handle(AddContactToBranchCommand request, CancellationToken cancellationToken) {
+        var branch = await context.Branches.FirstOrDefaultAsync(b => b.Id == request.BranchId);
+        if (branch == null) {
+            return null;
+        }
+        var contact = new BranchContact() {
             Name = request.Name,
             Content = request.Content,
+            Branch = branch,
         };
-        var branch = await context.Branches.FirstOrDefaultAsync(b => b.Id == request.BranchId);
         branch?.Contacts.Add(contact);
         await context.SaveChangesAsync(cancellationToken);
         return contact;

@@ -10,7 +10,7 @@ public class UpdateTopicCommand : IRequest<Topic?> {
     public required String Content { get; set; }
     public required Int32 BranchId { get; set; }
     public required Int32 UserId { get; set; }
-    public List<Contact> Contacts { get; set; } = [];
+    public List<TopicContact> Contacts { get; set; } = [];
 }
 
 public class UpdateTopicCommandHandler(IApplicationDbContext context) : IRequestHandler<UpdateTopicCommand, Topic?> {

@@ -9,7 +9,7 @@ namespace StudentHelper.Infrastructure.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options), IApplicationDbContext {
     public DbSet<Branch> Branches { get; set; } = null!;
-    public DbSet<Contact> Contacts { get; set; } = null!;
+    public DbSet<TopicContact> Contacts { get; set; } = null!;
     public DbSet<Topic> Topics { get; set; } = null!;
     public DbSet<University> Universities { get; set; } = null!;
 
