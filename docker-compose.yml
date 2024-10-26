@@ -1,7 +1,7 @@
 services:
   web:
     build:
-      context: ./BebraTemplate/
+      context: ./Serverside/
       dockerfile: докерфайл
     ports:
       - "5000:8080"
