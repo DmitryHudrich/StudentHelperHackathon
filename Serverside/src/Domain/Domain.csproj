@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>BebraTemplate.Domain</RootNamespace>
-    <AssemblyName>BebraTemplate.Domain</AssemblyName>
+    <RootNamespace>StudentHelper.Domain</RootNamespace>
+    <AssemblyName>StudentHelper.Domain</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,13 +1,13 @@
 ﻿namespace StudentHelper.Domain.Entities; 
 
 public class Branch {
-    public required Int32 Id { get; set; }
+    public Int32 Id { get; set; }
     public required String Name { get; set; }
     public required String Address { get; set; }
-    public required String ContactName { get; set; }
+    public List<Contact> Contacts { get; set; } = [];
     public required String Information { get; set; }
     public required String Image { get; set; }
-    public required String UniversityName { get; set; }
+    public required University University { get; set; }
 }
 
 public class TodoList : BaseAuditableEntity

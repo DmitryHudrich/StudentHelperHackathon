@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>BebraTemplate.Infrastructure</RootNamespace>
-    <AssemblyName>BebraTemplate.Infrastructure</AssemblyName>
+    <RootNamespace>StudentHelper.Infrastructure</RootNamespace>
+    <AssemblyName>StudentHelper.Infrastructure</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

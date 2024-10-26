@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <RootNamespace>BebraTemplate.Web</RootNamespace>
-    <AssemblyName>BebraTemplate.Web</AssemblyName>
+    <RootNamespace>StudentHelper.Web</RootNamespace>
+    <AssemblyName>StudentHelper.Web</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

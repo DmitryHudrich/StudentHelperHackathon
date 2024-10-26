@@ -5,6 +5,8 @@ using StudentHelper.Infrastructure;
 using StudentHelper.Infrastructure.Data;
 using StudentHelper.Web;
 using StudentHelper.Application.Universities.Queries;
+using StudentHelper.Application.Branch.Queries;
+using StudentHelper.Application.Branch.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +43,15 @@ app.MapGet("/university/all", static (ISender sender, [AsParameters] GetAllUnive
 app.MapPatch("/university", static (ISender sender, [AsParameters] UpdateUniversityCommand q) => sender.Send(q));
 app.MapPost("/university", static (ISender sender, [AsParameters] CreateUniversityCommand q) => sender.Send(q));
 app.MapDelete("/university", static (ISender sender, [AsParameters] DeleteUniversityCommand q) => sender.Send(q));
+
+app.MapGet("/branch", static (ISender sender, [AsParameters] GetBranchByIdQuery q) => sender.Send(q));
+app.MapGet("/branch/byunivercity", static (ISender sender, [AsParameters] GetAllBranchesByUniversityQuery q) => sender.Send(q));
+app.MapPatch("/branch", static (ISender sender, [AsParameters] UpdateBranchCommand q) => sender.Send(q));
+app.MapPost("/branch", static (ISender sender, [AsParameters] CreateBranchCommand q) => sender.Send(q));
+app.MapDelete("/branch", static (ISender sender, [AsParameters] DeleteBranchCommand q) => sender.Send(q));
+
+app.MapPost("/branch/contact", static (ISender sender, [AsParameters] AddContactToBranchCommand q) => sender.Send(q));
+app.MapDelete("/branch/contact", static (ISender sender, [AsParameters] RemoveContactFromBranchCommand q) => sender.Send(q));
 
 app.Run();
 

@@ -4,7 +4,7 @@ using StudentHelper.Domain.Entities;
 
 namespace StudentHelper.Application.Universities.Commands;
 
-public class CreateUniversityCommand : IRequest<Boolean> {
+public class CreateUniversityCommand : IRequest<University?> {
     public required String Name { get; set; }
     public required String MainAddress { get; set; }
     public required String ContactName { get; set; }
@@ -12,8 +12,8 @@ public class CreateUniversityCommand : IRequest<Boolean> {
     public required String Image { get; set; }
 }
 
-public class CreateUniversityCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateUniversityCommand, bool> {
-    public async Task<Boolean> Handle(CreateUniversityCommand request, CancellationToken cancellationToken) {
+public class CreateUniversityCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateUniversityCommand, University?> {
+    public async Task<University?> Handle(CreateUniversityCommand request, CancellationToken cancellationToken) {
         var university = new University() {
             Name = request.Name,
             MainAddress = request.MainAddress,
@@ -23,7 +23,7 @@ public class CreateUniversityCommandHandler(IApplicationDbContext context) : IRe
         };
         await context.Universities.AddAsync(university, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
-        return true;
+        return university;
     }
 }
 
