@@ -1,16 +1,17 @@
-﻿using StudentHelper.Application.Common.Interfaces;
+﻿using StudentHelper.Application.AUniversities.Commands;
+using StudentHelper.Application.Common.Interfaces;
 using StudentHelper.Domain.Entities;
 
-namespace StudentHelper.Application.Branch.Commands;
+namespace StudentHelper.Application.ABranch.Commands;
 
-public class AddContactToBranchCommand : IRequest<BranchContact?> {
+public class AddContactToBranchCommand : IRequest<Contact?> {
     public required Int32 BranchId { get; set; }
     public required String Name { get; set; }
     public required String Content { get; set; }
 }
 
-public class AddContactToBranchCommandHandler(IApplicationDbContext context) : IRequestHandler<AddContactToBranchCommand, BranchContact?> {
-    public async Task<BranchContact?> Handle(AddContactToBranchCommand request, CancellationToken cancellationToken) {
+public class AddContactToBranchCommandHandler(IApplicationDbContext context) : IRequestHandler<AddContactToBranchCommand, Contact?> {
+    public async Task<Contact?> Handle(AddContactToBranchCommand request, CancellationToken cancellationToken) {
         var branch = await context.Branches.FirstOrDefaultAsync(b => b.Id == request.BranchId);
         if (branch == null) {
             return null;
@@ -22,7 +23,7 @@ public class AddContactToBranchCommandHandler(IApplicationDbContext context) : I
         };
         branch?.Contacts.Add(contact);
         await context.SaveChangesAsync(cancellationToken);
-        return contact;
+        return new Contact(contact.Id, contact.Name, contact.Content);
     }
 }
 

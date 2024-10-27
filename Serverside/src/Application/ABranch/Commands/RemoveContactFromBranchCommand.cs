@@ -1,15 +1,15 @@
-﻿using StudentHelper.Application.Common.Interfaces;
-using StudentHelper.Domain.Entities;
+﻿using StudentHelper.Application.AUniversities.Commands;
+using StudentHelper.Application.Common.Interfaces;
 
-namespace StudentHelper.Application.Branch.Commands;
+namespace StudentHelper.Application.ABranch.Commands;
 
-public class RemoveContactFromBranchCommand : IRequest<BranchContact?> {
+public class RemoveContactFromBranchCommand : IRequest<Contact?> {
     public required Int32 BranchId { get; set; }
     public required String Name { get; set; }
 }
 
-public class RemoveContactFromBranchCommandHandler(IApplicationDbContext context) : IRequestHandler<RemoveContactFromBranchCommand, BranchContact?> {
-    public async Task<BranchContact?> Handle(RemoveContactFromBranchCommand request, CancellationToken cancellationToken) {
+public class RemoveContactFromBranchCommandHandler(IApplicationDbContext context) : IRequestHandler<RemoveContactFromBranchCommand, Contact?> {
+    public async Task<Contact?> Handle(RemoveContactFromBranchCommand request, CancellationToken cancellationToken) {
         var branch = await context.Branches.FirstOrDefaultAsync(b => b.Id == request.BranchId);
         var contact = branch?.Contacts.FirstOrDefault(c => c.Name == request.Name);
         if (contact == null || branch == null) {
@@ -17,6 +17,6 @@ public class RemoveContactFromBranchCommandHandler(IApplicationDbContext context
         }
         branch.Contacts.Remove(contact);
         await context.SaveChangesAsync(cancellationToken);
-        return contact;
+        return new Contact(contact.Id, contact.Name, contact.Content);
     }
 }

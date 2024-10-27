@@ -8,4 +8,5 @@ public class Branch {
     public required String Information { get; set; }
     public required String Image { get; set; }
     public required University University { get; set; }
+    public required List<Topic> Topics { get; set; } = [];
 }

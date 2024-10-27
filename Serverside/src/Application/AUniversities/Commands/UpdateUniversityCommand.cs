@@ -12,7 +12,7 @@ public class UpdateUniversityCommand : IRequest<Boolean> {
     public required String Image { get; set; }
 }
 
-public record Contact(String Name, String Content);
+public record Contact(Int32 Id, String Name, String Content);
 
 public class UpdateUniversityCommandHandler(IApplicationDbContext context) : IRequestHandler<UpdateUniversityCommand, bool> {
     public async Task<bool> Handle(UpdateUniversityCommand request, CancellationToken cancellationToken) {

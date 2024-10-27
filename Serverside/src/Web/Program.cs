@@ -11,15 +11,16 @@ using StudentHelper.Application.ATopic.Commands;
 using StudentHelper.Application.AUsers;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using StudentHelper.Application.ABranch.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
-
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -29,12 +30,15 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 else {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 app.UseHealthChecks("/health");
 
 app.UseExceptionHandler(static options => { });
@@ -69,6 +73,7 @@ app.MapGet("/profile", (ISender sender, HttpContext context) => {
     return sender.Send(q);
 })
     .RequireAuthorization();
+
 app.MapPost("/profile", static (ISender sender, [FromBody] UpdateProfileCommand q) => sender.Send(q))
     .RequireAuthorization();
 // app.MapPatch("/profile", static (ISender sender, [FromBody] UpdateUserProfileCommand q) => sender.Send(q));

@@ -1,6 +1,6 @@
 ﻿using StudentHelper.Application.Common.Interfaces;
 
-namespace StudentHelper.Application.Branch.Commands; 
+namespace StudentHelper.Application.ABranch.Commands;
 
 public class DeleteBranchCommand : IRequest<Boolean> {
     public int Id { get; set; }
