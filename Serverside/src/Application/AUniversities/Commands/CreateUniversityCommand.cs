@@ -9,7 +9,7 @@ public class UniversityContactCommand {
     public required Int32 UniversityId { get; set; }
 }
 
-public class CreateUniversityCommand : IRequest<University?> {
+public class CreateUniversityCommand : IRequest<CreateUniversityCommand?> {
     public required String Name { get; set; }
     public required String MainAddress { get; set; }
     public required String Information { get; set; }
@@ -17,8 +17,8 @@ public class CreateUniversityCommand : IRequest<University?> {
     public required List<Contact> Contacts { get; set; }
 }
 
-public class CreateUniversityCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateUniversityCommand, University?> {
-    public async Task<University?> Handle(CreateUniversityCommand request, CancellationToken cancellationToken) {
+public class CreateUniversityCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateUniversityCommand, CreateUniversityCommand?> {
+    public async Task<CreateUniversityCommand?> Handle(CreateUniversityCommand request, CancellationToken cancellationToken) {
         var contacts = new List<UniversityContact>();
 
         var university = new University() {
@@ -40,6 +40,12 @@ public class CreateUniversityCommandHandler(IApplicationDbContext context) : IRe
 
         await context.Universities.AddAsync(university, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
-        return university;
+        return new CreateUniversityCommand() {
+            MainAddress = university.Address,
+            Contacts = university.Contacts.Select(c => new Contact(c.Id, c.Name, c.Content)).ToList(),
+            Image = university.Image,
+            Information = university.Information,
+            Name = university.Name
+        };
     }
 }
