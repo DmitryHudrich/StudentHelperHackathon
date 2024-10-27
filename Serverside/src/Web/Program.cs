@@ -1,5 +1,4 @@
 ﻿using StudentHelper.Application;
-using StudentHelper.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 using StudentHelper.Infrastructure;
 using StudentHelper.Infrastructure.Data;
 using StudentHelper.Web;
@@ -9,8 +8,9 @@ using StudentHelper.Application.Branch.Commands;
 using StudentHelper.Application.AUniversities.Commands;
 using StudentHelper.Application.ATopic.Queries;
 using StudentHelper.Application.ATopic.Commands;
+using StudentHelper.Application.AUsers;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +39,6 @@ app.UseHealthChecks("/health");
 
 app.UseExceptionHandler(static options => { });
 
-app.MapGet("/test", static (ISender sender, [AsParameters] GetWeatherForecastsQuery q) => sender.Send(q));
 app.MapGroup("/auth").MapIdentityApi<StudentHelper.Infrastructure.Identity.ApplicationUser>();
 
 app.MapGet("/university", static (ISender sender, [AsParameters] GetTopicsByBranch q) => sender.Send(q));
@@ -61,6 +60,18 @@ app.MapGet("/topic", static (ISender sender, [AsParameters] GetTopicsByBranchQue
 app.MapPatch("/topic", static (ISender sender, [FromBody] UpdateTopicCommand q) => sender.Send(q));
 app.MapPost("/topic", static (ISender sender, [FromBody] CreateTopicCommand q) => sender.Send(q));
 app.MapDelete("/topic", static (ISender sender, [FromBody] DeleteTopicCommand q) => sender.Send(q));
+
+app.MapGet("/profile", (ISender sender, HttpContext context) => {
+    var q = new GetUserQuery() {
+        Id = context?.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? String.Empty,
+    };
+    Console.WriteLine(q.Id);
+    return sender.Send(q);
+})
+    .RequireAuthorization();
+app.MapPost("/profile", static (ISender sender, [FromBody] UpdateProfileCommand q) => sender.Send(q))
+    .RequireAuthorization();
+// app.MapPatch("/profile", static (ISender sender, [FromBody] UpdateUserProfileCommand q) => sender.Send(q));
 
 app.Run();
 
