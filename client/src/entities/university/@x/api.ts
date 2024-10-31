@@ -1,0 +1,1 @@
+export { universityDecoder } from "../api";

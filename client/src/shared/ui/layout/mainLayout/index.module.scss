@@ -1,0 +1,24 @@
+.mainSection {
+  margin-inline: 300px;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+}
+
+@media (max-width: 1024px) {
+  .mainSection {
+    margin-inline: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainSection {
+    margin-inline: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainSection {
+    margin-inline: 20px;
+  }
+}

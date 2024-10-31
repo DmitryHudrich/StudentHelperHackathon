@@ -1,0 +1,10 @@
+node_modules/**
+dist/**
+build/**
+public/
+.idea
+src/react-app-env.d.ts
+src/reportWebVitals.ts
+src/setupProxy.js
+src/api/generated
+tailwind.config.js

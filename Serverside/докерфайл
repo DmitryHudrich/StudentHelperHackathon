@@ -1,15 +1,21 @@
+# https://hub.docker.com/_/microsoft-dotnet
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
+COPY *.sln .
+COPY Directory.Build.props .
+COPY Directory.Packages.props .
+COPY src/Web/*.csproj src/Web/
+COPY src/Application/*.csproj src/Application/
+COPY src/Infrastructure/*.csproj src/Infrastructure/
+COPY src/Domain/*.csproj src/Domain/
+RUN dotnet restore
+
 COPY . .
+WORKDIR /source
+RUN dotnet publish -c Release -o /app --no-restore
 
-RUN dotnet restore ./src/Web/Web.csproj \
-    && dotnet publish ./src/Web/Web.csproj -c Release -o /app/publish
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-
-COPY --from=build /app/publish .
-
+COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "StudentHelper.Web.dll"]
-

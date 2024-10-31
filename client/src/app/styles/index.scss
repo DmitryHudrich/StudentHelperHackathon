@@ -1,0 +1,9 @@
+@import "antd/dist/reset.css";
+
+@tailwind utilities;
+
+#root,
+.ant-app {
+  min-height: 100dvh;
+  width: 100dvw;
+}

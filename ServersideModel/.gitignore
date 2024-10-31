@@ -1,0 +1,8 @@
+venv/
+rubq_main.ipynb
+Untitled8.ipynb
+dataset_download.py
+pavlov/
+__pycache__/
+.DS_Store
+forbidden_words.txt

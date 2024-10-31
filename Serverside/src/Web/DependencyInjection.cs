@@ -25,7 +25,7 @@ public static class DependencyInjection {
             options.SuppressModelStateInvalidFilter = true);
 
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen(c => {
+        services.AddSwaggerGen(static c => {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
                 Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
@@ -48,7 +48,7 @@ public static class DependencyInjection {
                 Name = "Bearer",
                 In = ParameterLocation.Header,
             },
-            new List<string>()
+            new List<String>()
         }});
         });
 

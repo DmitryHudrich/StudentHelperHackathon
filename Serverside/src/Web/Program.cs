@@ -21,7 +21,6 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 builder.Services.AddCors();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,7 +34,7 @@ else {
     app.UseHsts();
 }
 
-app.UseCors(builder => builder
+app.UseCors(static builder => builder
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader());
@@ -65,7 +64,7 @@ app.MapPatch("/topic", static (ISender sender, [FromBody] UpdateTopicCommand q) 
 app.MapPost("/topic", static (ISender sender, [FromBody] CreateTopicCommand q) => sender.Send(q));
 app.MapDelete("/topic", static (ISender sender, [FromBody] DeleteTopicCommand q) => sender.Send(q));
 
-app.MapGet("/profile", (ISender sender, HttpContext context) => {
+app.MapGet("/profile", static (ISender sender, HttpContext context) => {
     var q = new GetUserQuery() {
         Id = context?.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? String.Empty,
     };

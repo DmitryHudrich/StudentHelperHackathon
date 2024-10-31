@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  front:
+    build: .
+    environment:
+      NODE_ENV: production
+      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
