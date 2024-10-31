@@ -38,7 +38,6 @@ public class IdentityService(
         return (user.Id, user.Email, user.Age, user.FullName, user.University)!;
     }
 
-
     public async Task UpdateUserAsync(String userId, String email, Int32? age, String fullName, Int32 universityId) {
         var user = userManager.Users.FirstOrDefault(u => u.Id == userId);
         if (user == null) {

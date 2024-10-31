@@ -39,8 +39,7 @@ public class AuditableEntityInterceptor(
 }
 
 public static class Extensions {
-    public static Boolean HasChangedOwnedEntities(this EntityEntry entry) =>
-        entry.References.Any(r =>
+    public static Boolean HasChangedOwnedEntities(this EntityEntry entry) => entry.References.Any(static r =>
             r.TargetEntry != null &&
             r.TargetEntry.Metadata.IsOwned() &&
             (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified));

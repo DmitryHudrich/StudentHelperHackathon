@@ -1,5 +1,4 @@
 ﻿using StudentHelper.Domain.Constants;
-using StudentHelper.Domain.Entities;
 using StudentHelper.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;

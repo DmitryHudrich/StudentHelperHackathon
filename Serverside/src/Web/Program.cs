@@ -15,12 +15,12 @@ using StudentHelper.Application.ABranch.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -75,7 +75,6 @@ app.MapGet("/profile", static (ISender sender, HttpContext context) => {
 
 app.MapPost("/profile", static (ISender sender, [FromBody] UpdateProfileCommand q) => sender.Send(q))
     .RequireAuthorization();
-// app.MapPatch("/profile", static (ISender sender, [FromBody] UpdateUserProfileCommand q) => sender.Send(q));
 
 app.Run();
 
